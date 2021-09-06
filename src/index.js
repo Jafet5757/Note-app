@@ -6,10 +6,10 @@ const methodOverride = require('method-override');
 const session = require('express-session')
 const flash = require('connect-flash')
 const passport = require('passport');
-require('./database')
-require('./config/passport')
+require('./database');
+require('./config/passport');
 
-//min 3:12:40
+//min 3:12:40 min
 
 //Settings
 app.set('port', process.env.PORT || 3000);

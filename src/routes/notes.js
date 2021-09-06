@@ -6,8 +6,7 @@ const {isAuthenticated} = require('../helpers/auth')
 
 router.get('/notes', isAuthenticated, async function(req, res){
     //bsuca todos los registrpos y los ordena de forma descendente por fecha
-    const notes = await Note.find().sort({date: 'desc'});;
-    console.log(notes);
+    const notes = await Note.find({user: req.user.id}).sort({date: 'desc'});;
     res.render('notes/all-notes', {notes})
 })
 
@@ -20,6 +19,7 @@ router.post('/notes/new-notes', isAuthenticated, async (req, res) => {
     console.log(req.body);
 
     const newNote = new Note({title, description})
+    newNote.user = req.user.id;
     await newNote.save();
     req.flash('success_msg', 'Note added successfully')
     res.redirect('/notes')
